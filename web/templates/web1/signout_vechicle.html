@@ -1,0 +1,20 @@
+{% extends 'web1/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Sign Out Vehicle{% endblock %}
+{% block content %}
+<div class="row"><div class="col-md-5">
+<div class="card mb-3">
+<div class="card-header bg-info text-white">
+<h5>Vehicle Details</h5></div>
+<div class="card-body">
+<p><strong>Number Plate:</strong> {{ vehicle.number_plate }}</p>
+<p><strong>Driver:</strong> {{ vehicle.driver_name }}</p>
+<p><strong>Type:</strong> {{ vehicle.get_vehicle_type_display }}</p>
+<p><strong>Arrival:</strong> {{ vehicle.arrival_datetime|date:"Y-m-d H:i" }}</p><p>
+<strong>Model/Color:</strong> {{ vehicle.vehicle_model }} / {{ vehicle.color }}</p>
+</div></div></div>
+<div class="col-md-7"><div class="card">
+<div class="card-header bg-dark text-white">
+<h5>Sign Out Information</h5></div>
+<div class="card-body"><form method="post">{% csrf_token %}{{ form|crispy }}<button type="submit" class="btn btn-bronze">Process Sign Out & Calculate Fee</button>
+<a href="{% url 'core:active_vehicles' %}" class="btn btn-secondary">Cancel</a></form></div></div></div></div>

@@ -1,0 +1,48 @@
+{% extends 'web1/base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body"><h5>Vehicles Today</h5><h2>{{ vehicles_today }}</h2></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body"><h5>Signed Out</h5><h2>{{ signed_out_today }}</h2></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark">
+            <div class="card-body"><h5>Parking Revenue</h5><h2>UGX {{ parking_revenue }}</h2></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body"><h5>Total Revenue</h5><h2>UGX {{ total_revenue }}</h2></div>
+        </div>
+    </div>
+</div>
+
+<h5>Last 7 Days Revenue</h5>
+<table class="table table-bordered">
+    <thead><tr><th>Date</th><th>Parking</th><th>Tyre</th><th>Battery</th><th>Total</th></tr></thead>
+    <tbody>
+    {% for i in last_7_days %}
+    <tr>
+        <td>{{ i }}</td>
+        <td>
+            <div class="progress"><div class="progress-bar bg-success" style="width: {% widthratio parking_7d|slice:forloop.counter0|first max_rev 100 %}%">UGX {{ parking_7d|slice:forloop.counter0|first }}</div></div>
+        </td>
+        <td>
+            <div class="progress"><div class="progress-bar bg-warning" style="width: {% widthratio tyre_7d|slice:forloop.counter0|first max_rev 100 %}%">UGX {{ tyre_7d|slice:forloop.counter0|first }}</div></div>
+        </td>
+        <td>
+            <div class="progress"><div class="progress-bar bg-info" style="width: {% widthratio battery_7d|slice:forloop.counter0|first max_rev 100 %}%">UGX {{ battery_7d|slice:forloop.counter0|first }}</div></div>
+        </td>
+        <td>UGX {{ parking_7d|slice:forloop.counter0|first|add:tyre_7d|slice:forloop.counter0|first|add:battery_7d|slice:forloop.counter0|first }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

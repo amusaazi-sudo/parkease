@@ -1,0 +1,9 @@
+:root { --bronze: #cd7f32; }
+.text-bronze { color: var(--bronze); }
+.bg-bronze { background-color: var(--bronze); }
+.btn-bronze { background-color: var(--bronze); color: white; border: none; }
+.btn-bronze:hover { background-color: #a05a1a; color: white; }
+.list-group-item:hover { background-color: #2c3034 !important; padding-left: 25px; }
+.card { border-radius: 10px; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); transition: transform 0.2s; }
+.card:hover { transform: translateY(-3px); }
+.progress { height: 25px; }

@@ -1,0 +1,5 @@
+{% extends 'web1/base.html' %}
+{% block title %}Tyre Transactions{% endblock %}
+{% block content %}
+<div class="card"><div class="card-header bg-dark text-white d-flex justify-content-between"><h5>Tyre Service Transactions</h5><span>Total Revenue: UGX {{ total_revenue }}</span></div><div class="card-body"><div class="table-responsive"><table class="table table-striped"><thead><tr><th>Date</th><th>Customer</th><th>Tyre Size</th><th>Service</th><th>Amount</th><th>Attendant</th></tr></thead><tbody>{% for t in transactions %}<tr><td>{{ t.created_at|date:"Y-m-d H:i" }}</td><td>{{ t.customer_name }}</td><td>{{ t.tyre_size }}</td><td>{{ t.get_service_type_display }}</td><td>UGX {{ t.service_price }}</td><td>{{ t.created_by.username }}</td></tr>{% empty %}<tr><td colspan="6">No tyre services recorded yet.</td></tr>{% endfor %}</tbody></table></div></div></div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'web1/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Tyre Services{% endblock %}
+{% block content %}
+<div class="row"><div class="col-md-6"><div class="card"><div class="card-header bg-dark text-white"><h5>New Tyre Service</h5></div><div class="card-body"><form method="post">{% csrf_token %}{{ form|crispy }}<button type="submit" class="btn btn-bronze">Record Service</button></form></div></div></div>
+<div class="col-md-6"><div class="card"><div class="card-header bg-info text-white"><h5>Current Price List</h5></div><div class="card-body"><table class="table"><tr><th>Service</th><th>Price (UGX)</th></tr>{% for type, price in prices.items %}<tr><td>{{ type }}</td><td>{{ price }}</td></tr>{% endfor %}</table><small class="text-muted">Prices can be updated by Section Manager</small></div></div></div></div>
+{% endblock %}

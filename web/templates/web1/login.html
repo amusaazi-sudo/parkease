@@ -1,0 +1,32 @@
+{% extends 'web1/base.html' %}
+{% block auth_content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white text-center py-4">
+                    <h3 class="mb-0"><span class="text-bronze">ParkEase</span> System</h3>
+                    <small>Parking & Vehicle Services Management</small>
+                </div>
+                <div class="card-body p-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-bronze w-100 py-2">Login</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center text-muted">
+                    <small>ParkEase Integrated System v1.0</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

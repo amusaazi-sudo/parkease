@@ -1,0 +1,6 @@
+{% extends 'web1/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Battery Services{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-6"><div class="card"><div class="card-header bg-dark text-white"><h5>Record Battery Hire/Sale</h5></div><div class="card-body"><form method="post">{% csrf_token %}{{ form|crispy }}<button type="submit" class="btn btn-bronze">Record Transaction</button></form></div></div></div></div>
+{% endblock %}

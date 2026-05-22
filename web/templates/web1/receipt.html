@@ -1,0 +1,12 @@
+{% extends 'web1/base.html' %}
+{% block title %}Payment Receipt{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+<div class="col-md-8"><div class="card">
+<div class="card-header bg-dark text-white text-center">
+<h3>ParkEase Receipt</h3><small>Official Parking Receipt</small></div><div class="card-body"><div class="text-center mb-4">
+<h4>Receipt #: {{ receipt.receipt_number }}</h4><p class="text-muted">Date: {% now "Y-m-d H:i:s" %}</p></div>
+<div class="row"><div class="col-md-6"><h6>Vehicle Information</h6>
+<p><strong>Number Plate:</strong> {{ vehicle.number_plate }}<br>
+<strong>Driver:</strong> {{ vehicle.driver_name }}<br><strong>Vehicle Type:</strong> {{ vehicle.get_vehicle_type_display }}<br><strong>Model/Color:</strong> {{ vehicle.vehicle_model }} / {{ vehicle.color }}</p></div><div class="col-md-6"><h6>Parking Details</h6><p><strong>Entry Time:</strong> {{ receipt.entry_time|date:"Y-m-d H:i" }}<br><strong>Exit Time:</strong> {{ receipt.exit_time|date:"Y-m-d H:i" }}<br><strong>Duration:</strong> {{ receipt.duration }} hours<br><strong>Amount Paid:</strong> UGX {{ receipt.amount_paid }}</p></div></div>{% if signout %}<div class="row mt-3"><div class="col-12"><h6>Receiver Information</h6><p><strong>Name:</strong> {{ signout.receiver_name }}<br><strong>Phone:</strong> {{ signout.phone_number }}<br><strong>Gender:</strong> {{ signout.get_gender_display }}</p></div></div>{% endif %}<hr><div class="text-center"><button onclick="window.print()" class="btn btn-bronze">Print Receipt</button><a href="{% url 'core:active_vehicles' %}" class="btn btn-outline-dark">Back to Active</a></div></div></div></div></div>
+{% endblock %}

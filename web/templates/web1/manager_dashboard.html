@@ -1,0 +1,115 @@
+{% extends 'web1/base.html' %}
+{% block title %}Section Manager Dashboard{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="text-dark">Section Manager Dashboard</h1>
+            <p class="text-muted">Manage tyre and battery services</p>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card border-left-warning shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Tyre Services Today</div>
+                            <div class="h3 mb-0 font-weight-bold text-dark">{{ tyre_count }}</div>
+                            <div class="text-xs text-muted mt-2">Revenue: <strong>UGX {{ tyre_revenue }}</strong></div>
+                        </div>
+                        <i class="fas fa-wrench fa-3x text-warning opacity-25"></i>
+                    </div>
+                </div>
+                <div class="card-footer bg-white">
+                    <a href="{% url 'core:tyre_service' %}" class="btn btn-sm btn-warning w-100">
+                        <i class="fas fa-plus me-1"></i>Record Tyre Service
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-left-info shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Battery Services Today</div>
+                            <div class="h3 mb-0 font-weight-bold text-dark">{{ battery_count }}</div>
+                            <div class="text-xs text-muted mt-2">Revenue: <strong>UGX {{ battery_revenue }}</strong></div>
+                        </div>
+                        <i class="fas fa-battery-full fa-3x text-info opacity-25"></i>
+                    </div>
+                </div>
+                <div class="card-footer bg-white">
+                    <a href="{% url 'core:battery_service' %}" class="btn btn-sm btn-info w-100">
+                        <i class="fas fa-plus me-1"></i>Record Battery Service
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0"><i class="fas fa-link me-2"></i>Quick Links</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'core:tyre_transactions' %}" class="btn btn-outline-warning w-100">
+                                <i class="fas fa-history me-1"></i>Tyre Transactions
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'core:manage_tyre_prices' %}" class="btn btn-outline-warning w-100">
+                                <i class="fas fa-tags me-1"></i>Manage Tyre Prices
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'core:battery_transactions' %}" class="btn btn-outline-info w-100">
+                                <i class="fas fa-history me-1"></i>Battery Transactions
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'core:manage_battery_prices' %}" class="btn btn-outline-info w-100">
+                                <i class="fas fa-tags me-1"></i>Manage Battery Prices
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-secondary" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Note:</strong> Use the links above to manage services, view transactions, and update pricing for tyre and battery services.
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.border-left-warning {
+    border-left: 0.25rem solid #ffc107 !important;
+}
+.border-left-info {
+    border-left: 0.25rem solid #17a2b8 !important;
+}
+.card {
+    margin-bottom: 1rem;
+}
+.opacity-25 {
+    opacity: 0.25;
+}
+</style>
+{% endblock %}

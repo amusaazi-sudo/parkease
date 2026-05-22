@@ -1,0 +1,139 @@
+{% extends 'web1/base.html' %}
+{% block title %}Manage Battery Prices{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 class="text-dark">Manage Battery Pricing</h1>
+            <p class="text-muted">Update hire and sale prices for different battery types</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-tags me-2"></i>Battery Type Pricing</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="table-responsive mb-4">
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Battery Type</th>
+                                        <th>Hire Price (UGX)</th>
+                                        <th>Sale Price (UGX)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for setting in settings %}
+                                        <tr>
+                                            <td>
+                                                <input 
+                                                    type="text" 
+                                                    name="battery_type[]" 
+                                                    class="form-control" 
+                                                    value="{{ setting.battery_type }}" 
+                                                    placeholder="e.g., 100Ah, 200Ah"
+                                                    required>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">UGX</span>
+                                                    <input 
+                                                        type="number" 
+                                                        name="hire_price[]" 
+                                                        class="form-control" 
+                                                        value="{{ setting.hire_price }}" 
+                                                        placeholder="Hire Price"
+                                                        min="0"
+                                                        step="100"
+                                                        required>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">UGX</span>
+                                                    <input 
+                                                        type="number" 
+                                                        name="sale_price[]" 
+                                                        class="form-control" 
+                                                        value="{{ setting.sale_price }}" 
+                                                        placeholder="Sale Price"
+                                                        min="0"
+                                                        step="100"
+                                                        required>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card border-secondary mb-4">
+                            <div class="card-header bg-light">
+                                <h6 class="mb-0"><i class="fas fa-plus me-2"></i>Add New Battery Type</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Battery Type</label>
+                                        <input 
+                                            type="text" 
+                                            name="new_battery_type" 
+                                            class="form-control" 
+                                            placeholder="e.g., 100Ah, 200Ah">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Hire Price (UGX)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">UGX</span>
+                                            <input 
+                                                type="number" 
+                                                name="new_hire_price" 
+                                                class="form-control" 
+                                                placeholder="Hire Price"
+                                                min="0"
+                                                step="100">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Sale Price (UGX)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">UGX</span>
+                                            <input 
+                                                type="number" 
+                                                name="new_sale_price" 
+                                                class="form-control" 
+                                                placeholder="Sale Price"
+                                                min="0"
+                                                step="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-info">
+                                <i class="fas fa-save me-1"></i>Update All Prices
+                            </button>
+                            <a href="{% url 'core:manager_dashboard' %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-1"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-3">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Note:</strong> Add new battery types as needed. Prices are applied to all new battery service transactions recorded after the update.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
