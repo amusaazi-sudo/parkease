@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 bg-white rounded-3xl shadow-xl p-10">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to ParkEase</h2>
+      <p class="mt-2 text-center text-sm text-gray-600">Enter your staff credentials to access vehicle registration and receipts.</p>
+    </div>
+
+    <form class="mt-8 space-y-6" action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="rounded-md bg-red-50 p-4 text-sm text-red-700">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <div class="rounded-md shadow-sm -space-y-px">
+        <div>
+          <label for="id_username" class="sr-only">Username</label>
+          <input id="id_username" name="username" type="text" autocomplete="username" required
+            class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-2xl focus:outline-none focus:ring-[#003347] focus:border-[#003347] focus:z-10 sm:text-sm"
+            placeholder="Username" value="{{ form.username.value|default_if_none:'' }}">
+          {% if form.username.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ form.username.errors.0 }}</p>
+          {% endif %}
+        </div>
+        <div>
+          <label for="id_password" class="sr-only">Password</label>
+          <input id="id_password" name="password" type="password" autocomplete="current-password" required
+            class="appearance-none rounded-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-2xl focus:outline-none focus:ring-[#003347] focus:border-[#003347] focus:z-10 sm:text-sm"
+            placeholder="Password">
+          {% if form.password.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ form.password.errors.0 }}</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-2xl text-white bg-[#003347] hover:bg-[#002532] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#003347]">
+          Sign in
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

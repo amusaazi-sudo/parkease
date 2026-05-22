@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="bg-white p-8 overflow-auto mt-16 h-screen">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Registered Vehicles</h2>
+    <a href="{% url 'register_vehicle' %}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
+      + Register New Vehicle
+    </a>
+  </div>
+
+  <!-- Vehicles Table -->
+  <div class="relative overflow-auto">
+    <div class="overflow-x-auto rounded-lg border border-gray-200">
+      <table class="min-w-full bg-white">
+        <thead>
+          <tr class="bg-gray-800 text-center text-xs md:text-sm font-semibold text-white">
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">#</span>
+            </th>
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">Driver Name</span>
+            </th>
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">Number Plate</span>
+            </th>
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">Vehicle Type</span>
+            </th>
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">Model</span>
+            </th>
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">Color</span>
+            </th>
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">Phone Number</span>
+            </th>
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">Arrival Time</span>
+            </th>
+            <th class="p-0">
+              <span class="block py-3 px-3 border-r border-gray-600">Duration</span>
+            </th>
+            <th class="p-4 text-xs md:text-sm">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for vehicle in vehicles %}
+          <tr class="border-b text-xs md:text-sm text-center text-gray-700 hover:bg-gray-50">
+            <td class="p-3 md:p-3 font-medium">{{ forloop.counter }}</td>
+            <td class="p-3 md:p-3 font-semibold text-gray-800">{{ vehicle.driver_name }}</td>
+            <td class="p-3 md:p-3 font-mono font-bold text-blue-600">{{ vehicle.number_plate }}</td>
+            <td class="p-3 md:p-3">
+              <span class="px-2 py-1 rounded-full text-xs font-semibold 
+                {% if vehicle.vehicle_type == 'Truck' %}bg-purple-100 text-purple-800
+                {% elif vehicle.vehicle_type == 'Car' %}bg-blue-100 text-blue-800
+                {% elif vehicle.vehicle_type == 'Taxi' %}bg-yellow-100 text-yellow-800
+                {% elif vehicle.vehicle_type == 'Coaster' %}bg-green-100 text-green-800
+                {% else %}bg-orange-100 text-orange-800{% endif %}">
+                {{ vehicle.get_vehicle_type_display }}
+              </span>
+            </td>
+            <td class="p-3 md:p-3">{{ vehicle.model }}</td>
+            <td class="p-3 md:p-3">{{ vehicle.color }}</td>
+            <td class="p-3 md:p-3">{{ vehicle.phone_number }}</td>
+            <td class="p-3 md:p-3">{{ vehicle.arrival_time|date:"Y-m-d H:i" }}</td>
+            <td class="p-3 md:p-3">
+              {{ vehicle.arrival_time|timesince }}
+            </td>
+            <td class="relative p-3 md:p-3">
+              <div class="flex justify-center space-x-2">
+                <a href="{% url 'sign_out' %}" 
+                   class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-xs">
+                  Sign Out
+                </a>
+                <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-xs">
+                  Edit
+                </button>
+                <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-xs">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="10" class="text-center py-8 text-gray-500">
+              No vehicles registered yet. 
+              <a href="{% url 'register_vehicle' %}" class="text-blue-500 hover:underline">Register your first vehicle</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Display total count -->
+    <div class="mt-4 text-sm text-gray-600">
+      Total Vehicles: <span class="font-semibold">{{ vehicles|length }}</span>
+    </div>
+  </div>
+</div>
+{% endblock %}

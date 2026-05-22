@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ParkVille - Parking Management System</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <div class="w-full h-screen dark:bg-gray-900">
+      <!-- Nav -->
+      <nav class="fixed top-0 left-0 w-full h-20 grid place-items-center z-50 transition-all bg-[#003347]">
+        <div class="container mx-auto flex justify-between items-center h-full px-6">
+          <!-- LOGO -->
+          <a href="{% url 'register_vehicle' %}" class="w-12">
+            <img src="https://tailwindflex.com/images/logo.svg" alt="nav logo" class="object-cover object-center">
+          </a>
+
+          <!-- NAV LINKS -->
+          <ul class="hidden lg:flex gap-16 text-white">
+            {% if request.user.is_authenticated %}
+              <li><a href="{% url 'register_vehicle' %}" class="hover:text-[#ff7b02] transition-colors">Register Vehicle</a></li>
+              <li><a href="{% url 'register_table' %}" class="hover:text-[#ff7b02] transition-colors">Vehicles List</a></li>
+              <li><a href="{% url 'sign_out' %}" class="hover:text-[#ff7b02] transition-colors">Sign Out</a></li>
+              <li><a href="{% url 'logout' %}" class="hover:text-[#ff7b02] transition-colors">Logout</a></li>
+            {% else %}
+              <li><a href="{% url 'login' %}" class="hover:text-[#ff7b02] transition-colors">Login</a></li>
+            {% endif %}
+          </ul>
+
+          <!-- SOCIAL LINKS -->
+          
+
+          <!-- TOGGLE BUTTONS -->
+          <button class="block lg:hidden text-3xl text-white" id="nav__toggle-open">
+            <i class="uil uil-bars"></i>
+          </button>
+          <button class="hidden lg:hidden text-3xl text-white" id="nav__toggle-close">
+            <i class="uil uil-multiply"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- MOBILE NAV LINKS -->
+      <ul class="absolute top-[4rem] right-0 text-white flex-col hidden lg:hidden w-48 shadow-lg z-50" id="mobile-nav">
+        {% if request.user.is_authenticated %}
+          <li class="h-20 shadow-[-3rem_3rem_3rem_rgba(0,0,0,0.7)] bg-[#003347] hover:bg-[#003347]/80">
+            <a href="{% url 'register_vehicle' %}" class="flex items-center h-full px-6">Register Vehicle</a>
+          </li>
+          <li class="h-20 shadow-[-3rem_3rem_3rem_rgba(0,0,0,0.7)] bg-[#003347] hover:bg-[#003347]/80">
+            <a href="{% url 'register_table' %}" class="flex items-center h-full px-6">Vehicles List</a>
+          </li>
+          <li class="h-20 shadow-[-3rem_3rem_3rem_rgba(0,0,0,0.7)] bg-[#003347] hover:bg-[#003347]/80">
+            <a href="{% url 'sign_out' %}" class="flex items-center h-full px-6">Sign Out</a>
+          </li>
+          <li class="h-20 shadow-[-3rem_3rem_3rem_rgba(0,0,0,0.7)] bg-[#003347] hover:bg-[#003347]/80">
+            <a href="{% url 'logout' %}" class="flex items-center h-full px-6">Logout</a>
+          </li>
+        {% else %}
+          <li class="h-20 shadow-[-3rem_3rem_3rem_rgba(0,0,0,0.7)] bg-[#003347] hover:bg-[#003347]/80">
+            <a href="{% url 'login' %}" class="flex items-center h-full px-6">Login</a>
+          </li>
+        {% endif %}
+      </ul>
+      <!-- End Of Nav -->
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="pt-20">
+       <div class="container mx-auto px-6">
+      {% block content %}
+      {% endblock %}
+      </div>
+    </main>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script>
+      // Navbar toggle functionality
+      const nav = document.getElementById('mobile-nav');
+      const openNavBtn = document.getElementById('nav__toggle-open');
+      const closeNavBtn = document.getElementById('nav__toggle-close');
+
+      openNavBtn.addEventListener('click', () => {
+        nav.classList.remove('hidden');
+        openNavBtn.classList.add('hidden');
+        closeNavBtn.classList.remove('hidden');
+      });
+
+      closeNavBtn.addEventListener('click', () => {
+        nav.classList.add('hidden');
+        openNavBtn.classList.remove('hidden');
+        closeNavBtn.classList.add('hidden');
+      });
+
+      // Close mobile menu when clicking a link
+      const mobileLinks = document.querySelectorAll('#mobile-nav a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.add('hidden');
+          openNavBtn.classList.remove('hidden');
+          closeNavBtn.classList.add('hidden');
+        });
+      });
+    </script>
+  </body>
+</html>
